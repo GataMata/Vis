@@ -86,9 +86,7 @@ Menubar.File = function ( editor ) {
         var light = new THREE.SpotLight( color, intensity, distance, angle, penumbra );
         light.name = 'SpotLight';
         light.target.name = 'SpotLight Target';
-
         light.position.set( 0, 5500, 5000 );
-
         editor.execute( new AddObjectCommand( light ) );
 
 	} );
@@ -98,6 +96,13 @@ Menubar.File = function ( editor ) {
 	option.setClass( 'option' );
 	option.setTextContent( 'Import' );
 	option.onClick( function () {
+
+        if ( confirm( 'Any unsaved data will be lost. Are you sure?' ) ) {
+
+            editor.clear();
+            editor.storage.clear();
+            editor.project_uuid = "";
+        }
 
 		fileInput.click();
 
